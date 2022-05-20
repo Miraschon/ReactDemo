@@ -7,11 +7,10 @@ import HomePage from "./pages/HomePage";
 
 function App() {
     return <BrowserRouter>
-        <HomePage/>
         <Routes>
             <Route path="/" element={<HomePage/>}/>
-            <Route path="square" element={<SquarePage/>}/>
-            <Route path="todo" element={<TodoPage/>}/>
+            <Route path="/square" element={<SquarePage/>}/>
+            <Route path="/todo" element={<TodoPage/>}/>
         </Routes>
     </BrowserRouter>
 }
