@@ -1,24 +1,10 @@
 import './Square.css';
-import React, { useState } from 'react';
-
-function random(n) {
-    return Math.floor(Math.random() * n) + 1;
-}
-
-function randomColor() {
-    const colors = ['red','green','blue','magenta', 'cyan']
-    return colors[random(5) - 1];
-}
+import React from 'react';
 
 function Square(props) {
-    const {text} = props;
-    const [color, setColor] = useState("red")
+    const {text, color} = props;
 
-    function click() {
-        setColor(randomColor())
-    }
-
-    return <div onClick={click} className="square" style={{background:color}}>
+    return <div className="square" style={{background:color}}>
         {text}
     </div>
 }
