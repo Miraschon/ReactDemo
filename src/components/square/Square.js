@@ -15,7 +15,6 @@ function Square(props) {
     const [color, setColor] = useState("red")
 
     function click() {
-        console.log('Clicked')
         setColor(randomColor())
     }
 
