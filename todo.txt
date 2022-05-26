@@ -18,13 +18,13 @@ Step 2
 Step 3
 
 - Создать кнопку добавления нового пункта. Кнопка добавляет новый пункт в план с текстом 'New Item'.
+  Поиграться с Material UI:
+  (https://mui.com/material-ui/react-button/#icon-button)
+  (https://mui.com/material-ui/material-icons/)
 
 Step 4
 
 - Создать кнопку удаления текущего пункта.
-  Поиграться с Material UI:
-  (https://mui.com/material-ui/react-button/#icon-button)
-  (https://mui.com/material-ui/material-icons/)
   Выбрать кнопку самостоятельно.
 - Реализовать удаление
 
