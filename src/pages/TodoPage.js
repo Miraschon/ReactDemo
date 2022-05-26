@@ -1,15 +1,29 @@
+import {Link} from "react-router-dom";
+import React from "react";
+
 function TodoPage() {
     const todoList = ['Item 1', 'Item 2', 'Item 3']
 
     return <div>
-        <h1>TodoPage</h1>
-        <ul>
-            {todoList.map((item, idx) => (
-                <li>
-                    {idx+1}. {item}
-                </li>
-            ))}
-        </ul>
+        <div>
+            <button > <Link to="/">Table of contents</Link> </button>
+        </div>
+
+<div className="wrap">
+    <h1>TodoPage</h1>
+
+    {todoList.map((item, idx) => (
+        <div className="list" >
+
+            {idx+1}. {item}
+
+        </div>
+
+    ))}
+</div>
+
+
+
     </div>
 }
 

@@ -7,6 +7,7 @@ function Square(props) {
     return <div className="square" style={{background:color}}>
         {text}
     </div>
+
 }
 
 export default Square;
