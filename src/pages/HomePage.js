@@ -11,6 +11,9 @@ function HomePage() {
         <Link to="/todo">
             <div className="list">TODO list</div>
         </Link>
+        <Link to="/react">
+            <div className="list">React State</div>
+        </Link>
     </div>
 }
 
