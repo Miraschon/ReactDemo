@@ -8,22 +8,26 @@ class ReactState extends React.Component {
     constructor(props) {
         super(props);
         this.num=props.number;
+        console.log('constructor', this.num)
     }
 
-    increase(){
-        console.log('num=', this.num)
+    increase() {
         this.num++;
+        console.log('increase num',this.num)
     }
 
     render() {
-        console.log('num=', this.num)
+        console.log('render num', this.num)
         return <div>
             <button><Link to="/">Table of contents</Link></button>
             <div className="wrap">
                 <h1>React State</h1>
                 <p>{this.num}</p>
-
-                <button onClick={this.increase}>Increase</button>
+                {/*
+                The method this.increase loses external context (this) if used as an argument
+                That's why we should explicitly point the method to its context.
+                */}
+                <button onClick={this.increase.bind(this)}>Increase</button>
             </div>
         </div>
     }
