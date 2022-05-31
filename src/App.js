@@ -12,7 +12,7 @@ function App() {
             <Route path="/" element={<HomePage/>}/>
             <Route path="/square" element={<SquarePage/>}/>
             <Route path="/todo" element={<TodoPage/>}/>
-            <Route path="/react" element={<ReactState/>}/>
+            <Route path="/react" element={<ReactState number={0}/>}/>
         </Routes>
     </BrowserRouter>
 }
