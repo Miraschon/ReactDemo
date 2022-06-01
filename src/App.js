@@ -4,7 +4,8 @@ import {Routes, Route, BrowserRouter} from "react-router-dom";
 import TodoPage from "./pages/TodoPage";
 import SquarePage from "./pages/SquarePage";
 import HomePage from "./pages/HomePage";
-import ReactState from "./pages/ReactState";
+import ReactStateClass from "./pages/ReactStateClass";
+import ReactStateFunc from "./pages/ReactStateFunc";
 
 function App() {
     return <BrowserRouter>
@@ -12,7 +13,8 @@ function App() {
             <Route path="/" element={<HomePage/>}/>
             <Route path="/square" element={<SquarePage/>}/>
             <Route path="/todo" element={<TodoPage/>}/>
-            <Route path="/react" element={<ReactState number={0}/>}/>
+            <Route path="/react" element={<ReactStateClass number={0}/>}/>
+            <Route path="/reactfunc" element={<ReactStateFunc number={0}/>}/>
         </Routes>
     </BrowserRouter>
 }

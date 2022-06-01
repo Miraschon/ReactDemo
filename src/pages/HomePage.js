@@ -14,6 +14,9 @@ function HomePage() {
         <Link to="/react">
             <div className="list">React State</div>
         </Link>
+        <Link to="/reactfunc">
+            <div className="list">React State Func</div>
+        </Link>
     </div>
 }
 
