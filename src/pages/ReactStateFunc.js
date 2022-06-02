@@ -15,7 +15,7 @@ function ReactStateFunc(props) {
     }
 
     return <div>
-        <button > <Link to="/">Table of contents</Link> </button>
+        <button className={'table'}> <Link to="/">Table of contents</Link> </button>
         <div className="wrap"> <h1>React State Func</h1>
             <p>{num1}</p>
             <p>{num2}</p>

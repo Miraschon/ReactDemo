@@ -4,7 +4,7 @@
     border: 1px solid #282c34;
 }
 
-button{
+.table {
 
     width: 189px;
 
@@ -18,8 +18,35 @@ button{
 
     padding: 0;
 
-    float:left;
+    float: left;
 
+    border: none;
+
+    display: inline-block;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    border-radius: 5px;
+}
+
+.table:hover{
+    width: 189px;
+
+    height: 24.5px;
+
+    margin: 11px 0.5px 4.3px 0;
+
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
+
+    background-color: #91cbca;
+
+    padding: 0;
+
+    float: left;
+
+    border: none;
 
     display: inline-block;
 

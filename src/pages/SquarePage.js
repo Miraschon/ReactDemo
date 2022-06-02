@@ -18,7 +18,7 @@ function rotate(){
     }
     return (
         <div>
-            <button > <Link to="/">Table of contents</Link> </button>
+            <button className={'table'}> <Link to="/">Table of contents</Link> </button>
             <div className="wrap">
 
                 <table id="simple-board">
@@ -42,7 +42,7 @@ function rotate(){
                     </tbody>
 
                 </table>
-                <button onClick={rotate}>Rotate</button>
+                <button className={'table'} onClick={rotate}>Rotate</button>
 
             </div>
         </div>

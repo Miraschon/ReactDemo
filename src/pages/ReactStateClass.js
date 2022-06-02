@@ -28,7 +28,7 @@ class ReactStateClass extends React.Component {
     render() {
         console.log('render num', this.state.num1)
         return <div>
-            <button><Link to="/">Table of contents</Link></button>
+            <button className={'table'}><Link to="/">Table of contents</Link></button>
             <div className="wrap">
                 <h1>React State Class</h1>
                 <p>{this.state.num1}</p>
