@@ -24,21 +24,42 @@
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
+      "eslint-config-airbnb",
       "react-app/jest"
     ],
     "rules": {
-      "max-len": ["warn", { "code": 120 }],
-      "semi": ["error", "never"],
-      "comma-dangle": ["error", "never"],
+      "max-len": [
+        "warn",
+        {
+          "code": 120
+        }
+      ],
+      "no-console": 0,
+      "semi": [
+        "error",
+        "never"
+      ],
+      "comma-dangle": [
+        "error",
+        "never"
+      ],
       "no-use-before-define": "off",
-      "indent": ["error", 4],
+      "indent": [
+        "error",
+        4
+      ],
       "react/prop-types": "off",
       "object-curly-newline": "off",
       "object-property-newline": "off",
-      "import/no-unresolved": ["error", {
-        "ignore": [ "src/", "test/" ]
-      }]
+      "import/no-unresolved": [
+        "error",
+        {
+          "ignore": [
+            "src/",
+            "test/"
+          ]
+        }
+      ]
     }
   },
   "browserslist": {
@@ -52,5 +73,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint-config-airbnb": "^19.0.4"
   }
 }
