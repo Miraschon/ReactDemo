@@ -19,14 +19,27 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --coverage --watchAll=false",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "rules": {
+      "max-len": ["warn", { "code": 120 }],
+      "semi": ["error", "never"],
+      "comma-dangle": ["error", "never"],
+      "no-use-before-define": "off",
+      "indent": ["error", 4],
+      "react/prop-types": "off",
+      "object-curly-newline": "off",
+      "object-property-newline": "off",
+      "import/no-unresolved": ["error", {
+        "ignore": [ "src/", "test/" ]
+      }]
+    }
   },
   "browserslist": {
     "production": [
