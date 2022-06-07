@@ -28,7 +28,7 @@ class ReactStateClass extends React.Component {
     render() {
         console.log('render num', this.state.num1)
         return (
-          <div>
+            <div>
                 <button className="table"><Link to="/">Table of contents</Link></button>
                 <div className="wrap">
                     <h1>React State Class</h1>
@@ -40,7 +40,7 @@ class ReactStateClass extends React.Component {
                 */}
                     <button onClick={this.increase1.bind(this)}>Increase num1</button>
                     <button onClick={this.increase2.bind(this)}>Increase num2</button>
-            </div>
+                </div>
             </div>
         )
     }

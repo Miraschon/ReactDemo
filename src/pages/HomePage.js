@@ -1,6 +1,6 @@
-import {Link} from "react-router-dom";
-import * as React from "react";
-import './HomePage.css';
+import {Link} from "react-router-dom"
+import * as React from "react"
+import './HomePage.css'
 
 function HomePage() {
     return <div className="wrap">

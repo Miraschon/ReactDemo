@@ -1,16 +1,16 @@
-import Square from "../components/square/Square";
-import React, {useState} from "react";
-import {Link} from "react-router-dom";
+import Square from "../components/square/Square"
+import React, {useState} from "react"
+import {Link} from "react-router-dom"
 const colors = ['red','green','blue','cyan']
 function SquarePage() {
-const [counter,setCounter]=useState(0);
-function rotate(){
-        let temp= colors[0];
+    const [counter,setCounter]=useState(0)
+    function rotate(){
+        let temp= colors[0]
         for(let i=0; i<colors.length; i++){
             if(i<colors.length-1){
                 colors[i]=colors[i+1]
             }else if(i===colors.length-1){
-                colors[i]=temp;
+                colors[i]=temp
             }
         }
         setCounter(counter+1)
@@ -23,22 +23,22 @@ function rotate(){
 
                 <table id="simple-board">
                     <tbody>
-                    <tr id="row1">
-                        <td>
-                            <Square color={colors[3]}/>
-                        </td>
-                        <td>
-                            <Square color={colors[2]}/>
-                        </td>
-                    </tr>
-                    <tr id="row2">
-                        <td>
-                            <Square color={colors[0]}/>
-                        </td>
-                        <td>
-                            <Square color={colors[1]}/>
-                        </td>
-                    </tr>
+                        <tr id="row1">
+                            <td>
+                                <Square color={colors[3]}/>
+                            </td>
+                            <td>
+                                <Square color={colors[2]}/>
+                            </td>
+                        </tr>
+                        <tr id="row2">
+                            <td>
+                                <Square color={colors[0]}/>
+                            </td>
+                            <td>
+                                <Square color={colors[1]}/>
+                            </td>
+                        </tr>
                     </tbody>
 
                 </table>
@@ -47,7 +47,7 @@ function rotate(){
             </div>
         </div>
 
-    );
+    )
 }
 
-export default SquarePage;
+export default SquarePage

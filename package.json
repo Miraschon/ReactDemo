@@ -24,14 +24,14 @@
   },
   "eslintConfig": {
     "extends": [
-      "eslint-config-airbnb",
+      "react-app",
       "react-app/jest"
-    ],
+      ],
     "rules": {
       "max-len": [
         "warn",
         {
-          "code": 120
+          "code": 160
         }
       ],
       "no-console": 0,

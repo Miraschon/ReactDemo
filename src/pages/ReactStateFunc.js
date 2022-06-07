@@ -1,6 +1,6 @@
-import {Link} from "react-router-dom";
-import * as React from "react";
-import {useState} from "react";
+import {Link} from "react-router-dom"
+import * as React from "react"
+import {useState} from "react"
 
 function ReactStateFunc(props) {
     const [num1, setNum1] = useState(props.number)

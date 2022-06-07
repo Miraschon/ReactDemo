@@ -1,8 +1,8 @@
-import './Square.css';
-import React from 'react';
+import './Square.css'
+import React from 'react'
 
 function Square(props) {
-    const {text, color} = props;
+    const {text, color} = props
 
     return <div className="square" style={{background:color}}>
         {text}
@@ -10,4 +10,4 @@ function Square(props) {
 
 }
 
-export default Square;
+export default Square

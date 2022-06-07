@@ -1,11 +1,11 @@
-import './App.css';
-import * as React from "react";
-import {Routes, Route, BrowserRouter} from "react-router-dom";
-import TodoPage from "./pages/TodoPage";
-import SquarePage from "./pages/SquarePage";
-import HomePage from "./pages/HomePage";
-import ReactStateClass from "./pages/ReactStateClass";
-import ReactStateFunc from "./pages/ReactStateFunc";
+import './App.css'
+import * as React from "react"
+import {Routes, Route, BrowserRouter} from "react-router-dom"
+import TodoPage from "./pages/TodoPage"
+import SquarePage from "./pages/SquarePage"
+import HomePage from "./pages/HomePage"
+import ReactStateClass from "./pages/ReactStateClass"
+import ReactStateFunc from "./pages/ReactStateFunc"
 
 function App() {
     return <BrowserRouter>
@@ -19,4 +19,4 @@ function App() {
     </BrowserRouter>
 }
 
-export default App;
+export default App
