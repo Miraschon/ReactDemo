@@ -1,11 +1,18 @@
-import { Link } from 'react-router-dom'
-import React, { useState } from 'react'
+import {Link} from 'react-router-dom'
+import React, {useState} from 'react'
 import './TodoPage.css'
-import { IconButton } from '@mui/material'
+import {IconButton} from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import DeleteIcon from '@mui/icons-material/Delete'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import {loadTodo} from "../components/api/api"
+import circle from './VAyR.gif'
 
-const todoList = ['Item 1', 'Item 2', 'Item 3'] // create a list of items
+let todoList = [] // create a list of items
+
+let loading = true
+let loaded = false
 
 function TodoPage() {
     /*
@@ -15,6 +22,15 @@ function TodoPage() {
     useState returns both variable and setter (function that changes var value)
      */
     const [num, setNum] = useState(1)
+
+
+    function Loading() {
+        if (loading)
+            return <img src={circle} alt="circle" width="50" height="50"/>
+        else
+            return <></>
+    }
+
     /*
     event happens when input is changed
     event.target is needed to reach input id and value
@@ -32,42 +48,95 @@ function TodoPage() {
         setNum(num + 1)
     }
 
-    function deleteItem(event){
-        const button=event.target.parentElement.parentElement
+    function deleteItem(event) {
+        const button = event.target.parentElement.parentElement
         /*
         In this case, id is located in a parent element, needs to be reached through target.parentElement.parentElement
          */
         console.log(button.id)
-        todoList.splice(button.id,1)
+        todoList.splice(button.id, 1)
+        setNum(num + 1)
+    }
+
+    function moveUp(event) {
+        let button = event.target.parentElement
+        if (!button.id) {
+            button = event.target.parentElement.parentElement
+        }
+        let id = +button.id
+        let temp = todoList[id]
+        if (id > 0) {
+            todoList[id] = todoList[id - 1]
+            todoList[id - 1] = temp
+            console.log(todoList)
+        }
+        setNum(num + 1)
+    }
+
+    function getJson(json) {
+        loading = false
+        loaded = true
+        todoList = json
+        console.log('todo page: ', json)
+        setNum(num + 1)
+    }
+
+
+    function moveDown(event) {
+        let button = event.target.parentElement
+        if (!button.id) {
+            button = event.target.parentElement.parentElement
+        }
+        let id = +button.id
+        console.log(id)
+        let temp = todoList[id]
+        if (id < todoList.length - 1) {
+            todoList[id] = todoList[id + 1]
+            todoList[id + 1] = temp
+            console.log(todoList)
+        }
+
         setNum(num + 1)
     }
 
 
     console.log('render')
+    if (!loaded) {
+        loading = true
+        loadTodo(getJson)
+    }
+
     return (
-        <div>]
+        <div>
             <div>
                 <button className="table"><Link to="/">Table of contents</Link></button>
             </div>
 
             <div className="wrap">
                 <h1>TodoPage</h1>
-
+                <Loading/>
                 {/* item is an array element, idx is its index */}
                 {todoList.map((item, idx) => (
-                    <div key={idx}>
+                    <div key={item.id}>
                         {/* id is used to bind array element index to input */}
-                        <input className="item" id={idx} value={item} onChange={getInputValue} />
+                        <input className="item" id={item.id} value={item.text} onChange={getInputValue}/>
                         {/* id is used to bind array element index to button */}
-                        <IconButton id={idx} onClick={deleteItem} color="default" aria-label="delete">
-                            <DeleteIcon />
+                        <IconButton id={item.id} onClick={moveUp} color="default" aria-label="up">
+                            <KeyboardArrowUpIcon/>
                         </IconButton>
+                        <IconButton id={item.id} onClick={moveDown} color="default" aria-label="down">
+                            <KeyboardArrowDownIcon/>
+                        </IconButton>
+                        <IconButton id={item.id} onClick={deleteItem} color="default" aria-label="delete">
+                            <DeleteIcon/>
+                        </IconButton>
+
                     </div>
                 ))}
 
-                <p />
+                <p/>
                 <IconButton onClick={add} color="default" aria-label="add">
-                    <AddIcon />
+                    <AddIcon/>
                 </IconButton>
             </div>
 
