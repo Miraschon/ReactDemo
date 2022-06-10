@@ -1,14 +1,30 @@
-
-
-- Немного теории про сети передачи данных. IP адреса и протоколы
-- Подключение к бэкенду. Postman.
-- fetch и асинхронные функции
-- получение списка todo из бэкенда
-
 Step 7.
 
 - Реализация CRUD в соединении с бэкендом
+    - Добавление элемента через API (метод POST, url http://localhost:8080/api/todo)
+          Пример fetch:
+
+                // create request object
+                const request = new Request(url, { // API URL
+                    method: 'POST',
+                    body: JSON.stringify(item),  // item to add. Should contain just 'text' field
+                    headers: new Headers({
+                        'Content-Type': 'application/json'
+                    })
+                });
+
+                // pass request object to `fetch()`
+                fetch(request)
+                    .then(res => res.json())  // Only if the API call returns JSON. Otherwise, use res.text() or even an empty .then()
+                    .then(res => console.log(res));
+
+    - Изменение элемента (метод PUT, url http://localhost:8080/api/todo)
+              item должен состоять из двух полей - id и text
+    - Удаление элемента (метод DELETE, url http://localhost:8080/api/todo/id, где id - это id элемента)
+              DELETE не требует body и даже headers. Только method.
 - Реализация перемещения пунктов в соединении с бэкендом
+    - Перемещения вверх/вниз (метод PUT, url http://localhost:8080/api/todo/moveUp/id, где id - это id элемента
+             В этом методе body и headers тоже не нужны.
 
 Step 8.
 
