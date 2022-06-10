@@ -7,7 +7,10 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import {loadTodo} from "../components/api/api"
+import {add} from "../components/api/api"
+import {update} from "../components/api/api"
 import circle from './VAyR.gif'
+import EditIcon from '@mui/icons-material/Edit'
 
 let todoList = [] // create a list of items
 
@@ -39,14 +42,22 @@ function TodoPage() {
     function getInputValue(event) {
         const input = event.target
         // show the user input value to console
-        todoList[input.id] = input.value
-        setNum(num + 1)// using setter to change variable in state of the component, to renew input value
+        const idx = input.id.split('.')[1]
+        todoList[idx].text = input.value
+        setNum(num + 1)//
     }
 
-    function add() {
-        todoList.push('New Item')
-        setNum(num + 1)
+    function updateItem(event) {
+        const input = event.target
+        // show the user input value to console
+        const id = input.id.split('.')[0]
+        const item= {
+            id: id,
+            text: input.value
+        }
+        update(item, refresh)
     }
+
 
     function deleteItem(event) {
         const button = event.target.parentElement.parentElement
@@ -101,9 +112,19 @@ function TodoPage() {
 
 
     console.log('render')
-    if (!loaded) {
+    if (!loaded && todoList.length === 0) {
         loading = true
         loadTodo(getJson)
+    }
+
+    function refresh(){
+        console.log('refresh')
+        setNum(num + 1)
+    }
+
+
+    function addItem(){
+        add(refresh)
     }
 
     return (
@@ -119,7 +140,7 @@ function TodoPage() {
                 {todoList.map((item, idx) => (
                     <div key={item.id}>
                         {/* id is used to bind array element index to input */}
-                        <input className="item" id={item.id} value={item.text} onChange={getInputValue}/>
+                        <input className="item" id={item.id+'.'+idx} value={item.text} onBlur={updateItem} onChange={getInputValue}/>
                         {/* id is used to bind array element index to button */}
                         <IconButton id={item.id} onClick={moveUp} color="default" aria-label="up">
                             <KeyboardArrowUpIcon/>
@@ -135,7 +156,7 @@ function TodoPage() {
                 ))}
 
                 <p/>
-                <IconButton onClick={add} color="default" aria-label="add">
+                <IconButton onClick={addItem} color="default" aria-label="add">
                     <AddIcon/>
                 </IconButton>
             </div>
