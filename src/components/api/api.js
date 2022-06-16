@@ -1,6 +1,6 @@
 function loadTodo(getJson) {
     console.log('loading todo')
-    fetch('http://192.168.0.5:8080/api/todo/all')
+    fetch('http://192.168.0.5:8080/api/todo/all?delay=1')
         .then(function (response) {
             return response.json()
         }).catch(function (error) {
@@ -31,7 +31,7 @@ function add(callBack){
 }
 
 function update(item, callBack){
-    console.log('update')
+    console.log('update', item)
     const request = new Request('http://192.168.0.5:8080/api/todo', {
         method: 'PUT',
         body: JSON.stringify(item),  // item to add. Should contain just 'text' field
@@ -45,4 +45,16 @@ function update(item, callBack){
         .then(callBack())  // Only if the API call returns JSON. Otherwise, use res.text() or even an empty .then()
 }
 
-export {loadTodo, add, update}
+function deleteItemApi(item, callBack){
+    console.log('delete')
+    const request = new Request('http://192.168.0.5:8080/api/todo/'+item.id, {
+        method: 'DELETE'
+    })
+
+    // pass request object to `fetch()`
+    fetch(request)
+        .then(()=>callBack())  // Only if the API call returns JSON. Otherwise, use res.text() or even an empty .then()
+}
+
+
+export {loadTodo, add, update, deleteItemApi}
