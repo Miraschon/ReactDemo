@@ -1,3 +1,5 @@
+import { useQuery } from "react-query"
+
 function loadTodo(getJson) {
     console.log('loading todo')
     fetch('http://192.168.0.5:8080/api/todo/all?delay=1')
@@ -56,5 +58,35 @@ function deleteItemApi(item, callBack){
         .then(()=>callBack())  // Only if the API call returns JSON. Otherwise, use res.text() or even an empty .then()
 }
 
+function dragDrop(srcId, dstId, callBack){
+    const request = new Request('http://192.168.0.5:8080/api/todo/drop?srcId='+srcId+'&dstId='+dstId,{
+        method: 'PUT'
+    })
+    fetch(request)
+        .then(()=>callBack())
+}
 
-export {loadTodo, add, update, deleteItemApi}
+function moveUp(item, callBack){
+    const request = new Request('http://192.168.0.5:8080/api/todo/moveUp/'+item.id,{
+        method: 'PUT'
+    })
+    fetch(request)
+        .then(()=>callBack())
+}
+
+function moveDown(item, callBack){
+    const request = new Request('http://192.168.0.5:8080/api/todo/moveDown/'+item.id,{
+        method: 'PUT'
+    })
+    fetch(request)
+        .then(()=>callBack())
+}
+
+const fetchList = async () => {
+    const res = await fetch('http://192.168.0.5:8080/api/todo/all?delay=500')
+    return res.json()
+}
+
+
+
+export {loadTodo, add, update, deleteItemApi, dragDrop, moveUp, moveDown, fetchList}

@@ -6,16 +6,12 @@ import AddIcon from '@mui/icons-material/Add'
 import DeleteIcon from '@mui/icons-material/Delete'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-import {loadTodo} from "../components/api/api"
-import {add} from "../components/api/api"
-import {update} from "../components/api/api"
+import {add, deleteItemApi, dragDrop, fetchList, moveDown, moveUp, update} from "../components/api/api"
 import circle from './VAyR.gif'
-import {deleteItemApi} from "../components/api/api"
+import {DragDrop} from "./DragNDropPage"
+import {useQuery} from "react-query"
 
 let todoList = [] // create a list of items
-
-let loading = true
-let loaded = false
 
 function TodoPage() {
     /*
@@ -25,10 +21,11 @@ function TodoPage() {
     useState returns both variable and setter (function that changes var value)
      */
     const [num, setNum] = useState(1)
+    const {data, status} = useQuery("list", fetchList)
 
 
     function Loading() {
-        if (loading)
+        if (status === "loading")
             return <img src={circle} alt="circle" width="50" height="50"/>
         else
             return <></>
@@ -44,7 +41,7 @@ function TodoPage() {
     function updateItem(event) {
         const input = event.target
         const id = todoList[input.id].id //id value of array index is used
-        const item= {
+        const item = {
             id: id,
             text: input.value
         }
@@ -66,68 +63,49 @@ function TodoPage() {
         }
         let id = +button.id
         const input = event.target
-        const item= {
+        const item = {
             id: id,
             text: input.value
         }
         deleteItemApi(item, refresh)
     }
 
-    function moveUp(event) {
+    function Up(event) {
         let button = event.target.parentElement
         if (!button.id) {
             button = event.target.parentElement.parentElement
         }
         let id = +button.id
-        let temp = todoList[id]
-        if (id > 0) {
-            todoList[id] = todoList[id - 1]
-            todoList[id - 1] = temp
-            console.log(todoList)
+        const input = event.target
+        const item = {
+            id: id,
+            text: input.value
         }
-        setNum(num + 1)
-    }
-
-    function getJson(json) {
-        loading = false
-        loaded = true
-        todoList = json
-        console.log('todo page: ', json)
-        setNum(num + 1)
+        moveUp(item, refresh)
     }
 
 
-    function moveDown(event) {
+    function Down(event) {
         let button = event.target.parentElement
         if (!button.id) {
             button = event.target.parentElement.parentElement
         }
         let id = +button.id
-        console.log(id)
-        let temp = todoList[id]
-        if (id < todoList.length - 1) {
-            todoList[id] = todoList[id + 1]
-            todoList[id + 1] = temp
-            console.log(todoList)
+        const input = event.target
+        const item = {
+            id: id,
+            text: input.value
         }
-
-        setNum(num + 1)
+        moveDown(item, refresh)
     }
 
 
-    console.log('render')
-    if (!loaded && todoList.length === 0) {
-        loading = true
-        loadTodo(getJson)
-    }
-
-    function refresh(){
-        console.log('refresh')
-        loadTodo(getJson)
+    function refresh() {
+        setNum(num+1)
     }
 
 
-    function addItem(){
+    function addItem() {
         add(refresh)
     }
 
@@ -148,16 +126,20 @@ function TodoPage() {
             {/* id is used to bind array element index to input */}
             <input className="item" id={idx} value={item.text} onBlur={updateItem} onChange={refreshInput}/>
             {/* id is used to bind array element index to button */}
-            <IconButton id={item.id} onClick={moveUp} color="default" aria-label="up">
+            <IconButton id={item.id} onClick={Up} color="default" aria-label="up">
                 <KeyboardArrowUpIcon/>
             </IconButton>
-            <IconButton id={item.id} onClick={moveDown} color="default" aria-label="down">
+            <IconButton id={item.id} onClick={Down} color="default" aria-label="down">
                 <KeyboardArrowDownIcon/>
             </IconButton>
             <IconButton id={item.id} onClick={deleteItem} color="default" aria-label="delete">
                 <DeleteIcon/>
             </IconButton>
         </div>
+    }
+
+    function onItemDropped(srcId, dstId) {
+        dragDrop(srcId, dstId, refresh)
     }
 
     return (
@@ -167,17 +149,23 @@ function TodoPage() {
             </div>
 
             <div className="wrap">
-                <h1>TodoPage</h1>
-                <Loading/>
-                {/* item is an array element, idx is its index */}
-                {todoList.map((item, idx) => (
-                    <Item key={idx} item={item} idx={idx}/>
-                ))}
 
+                <h1>TodoPage</h1>
+                {/* item is an array element, idx is its index */}
+                {status === "error" && <p>Error fetching data</p>}
+                <Loading/>
+                {status === "success" && (
+                    data.map((item, idx) => (
+                        <DragDrop key={idx} id={item.id} onItemDropped={onItemDropped}><Item key={idx} item={item}
+                            idx={idx}/></DragDrop>
+                    ))
+                )
+                }
                 <p/>
                 <IconButton onClick={addItem} color="default" aria-label="add">
                     <AddIcon/>
                 </IconButton>
+                )
             </div>
 
         </div>

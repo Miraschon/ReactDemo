@@ -6,7 +6,7 @@ import SquarePage from "./pages/SquarePage"
 import HomePage from "./pages/HomePage"
 import ReactStateClass from "./pages/ReactStateClass"
 import ReactStateFunc from "./pages/ReactStateFunc"
-import DragNDropPage from "./pages/DragNDropPage"
+import {DragNDropPage} from "./pages/DragNDropPage"
 
 function App() {
     return <BrowserRouter>
