@@ -1,3 +1,5 @@
+// noinspection HtmlUnknownTarget
+
 import {Link} from 'react-router-dom'
 import React, {useState} from 'react'
 import './TodoPage.css'
@@ -7,7 +9,6 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import {add, deleteItemApi, dragDrop, fetchList, moveDown, moveUp, update} from "../components/api/api"
-import circle from './VAyR.gif'
 import {DragDrop} from "./DragNDropPage"
 import {useQuery} from "react-query"
 
@@ -20,13 +21,14 @@ function TodoPage() {
 
     useState returns both variable and setter (function that changes var value)
      */
-    const [num, setNum] = useState(1)
-    const {data, status} = useQuery("list", fetchList)
+    // const [num, setNum] = useState(1)
+    const {data, status, refetch, isFetching} = useQuery("list", fetchList)
 
 
-    function Loading() {
-        if (status === "loading")
-            return <img src={circle} alt="circle" width="50" height="50"/>
+    function Fetching(props) {
+        const {size}=props
+        if (isFetching)
+            return <img src='loading.svg' alt="circle" width={size} height={size}/>
         else
             return <></>
     }
@@ -101,7 +103,7 @@ function TodoPage() {
 
 
     function refresh() {
-        setNum(num+1)
+        refetch().then()
     }
 
 
@@ -116,6 +118,7 @@ function TodoPage() {
         function refreshInput(event) {
             const input = event.target
             console.log(input.value)
+            console.log('todoList = ',todoList)
             todoList[input.id].text = input.value //assign the text from input to the array item
             console.log(todoList)
             setItemNum(itemNum + 1)//
@@ -142,6 +145,8 @@ function TodoPage() {
         dragDrop(srcId, dstId, refresh)
     }
 
+    todoList=data
+
     return (
         <div>
             <div>
@@ -153,7 +158,7 @@ function TodoPage() {
                 <h1>TodoPage</h1>
                 {/* item is an array element, idx is its index */}
                 {status === "error" && <p>Error fetching data</p>}
-                <Loading/>
+                <div className="load"><Fetching size={32}/></div>
                 {status === "success" && (
                     data.map((item, idx) => (
                         <DragDrop key={idx} id={item.id} onItemDropped={onItemDropped}><Item key={idx} item={item}
@@ -165,7 +170,7 @@ function TodoPage() {
                 <IconButton onClick={addItem} color="default" aria-label="add">
                     <AddIcon/>
                 </IconButton>
-                )
+
             </div>
 
         </div>

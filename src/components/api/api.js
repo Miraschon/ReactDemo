@@ -1,6 +1,6 @@
-import { useQuery } from "react-query"
 
-function loadTodo(getJson) {
+
+/* function loadTodo(getJson) {
     console.log('loading todo')
     fetch('http://192.168.0.5:8080/api/todo/all?delay=1')
         .then(function (response) {
@@ -13,7 +13,7 @@ function loadTodo(getJson) {
                 getJson(todoList)
             }
         )
-}
+}*/
 
 function add(callBack){
     const item = {
@@ -83,10 +83,10 @@ function moveDown(item, callBack){
 }
 
 const fetchList = async () => {
-    const res = await fetch('http://192.168.0.5:8080/api/todo/all?delay=500')
+    const res = await fetch('http://192.168.0.5:8080/api/todo/all?delay=800')
     return res.json()
 }
 
 
 
-export {loadTodo, add, update, deleteItemApi, dragDrop, moveUp, moveDown, fetchList}
+export {add, update, deleteItemApi, dragDrop, moveUp, moveDown, fetchList}
