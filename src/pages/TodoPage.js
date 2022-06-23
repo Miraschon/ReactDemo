@@ -26,9 +26,9 @@ function TodoPage() {
 
 
     function Fetching(props) {
-        const {size}=props
-        if (isFetching)
-            return <img src='loading.svg' alt="circle" width={size} height={size}/>
+        const {size} = props
+        if (!isFetching)
+            return <div style={{marginTop: 10}}><img src='loading.svg' alt="circle" width={size} height={size}/></div>
         else
             return <></>
     }
@@ -102,8 +102,8 @@ function TodoPage() {
     }
 
 
-    function refresh() {
-        refetch().then()
+    async function refresh() {
+        await refetch()
     }
 
 
@@ -118,7 +118,7 @@ function TodoPage() {
         function refreshInput(event) {
             const input = event.target
             console.log(input.value)
-            console.log('todoList = ',todoList)
+            console.log('todoList = ', todoList)
             todoList[input.id].text = input.value //assign the text from input to the array item
             console.log(todoList)
             setItemNum(itemNum + 1)//
@@ -145,7 +145,7 @@ function TodoPage() {
         dragDrop(srcId, dstId, refresh)
     }
 
-    todoList=data
+    todoList = data
 
     return (
         <div>
@@ -153,12 +153,21 @@ function TodoPage() {
                 <button className="table"><Link to="/">Table of contents</Link></button>
             </div>
 
-            <div className="wrap">
 
-                <h1>TodoPage</h1>
+            <div className="wrap">
+                <div style={{height: 80, verticalAlign: 'middle'}}>
+                    <div style={{
+                        display: 'table-cell',
+                        paddingLeft: 100
+                    }}><h1>TodoPage</h1></div>
+                    <div style={{
+                        display: 'table-cell',
+                        paddingLeft: 10
+                    }}><Fetching size={32}/></div>
+                </div>
                 {/* item is an array element, idx is its index */}
                 {status === "error" && <p>Error fetching data</p>}
-                <div className="load"><Fetching size={32}/></div>
+
                 {status === "success" && (
                     data.map((item, idx) => (
                         <DragDrop key={idx} id={item.id} onItemDropped={onItemDropped}><Item key={idx} item={item}
@@ -166,6 +175,7 @@ function TodoPage() {
                     ))
                 )
                 }
+
                 <p/>
                 <IconButton onClick={addItem} color="default" aria-label="add">
                     <AddIcon/>
